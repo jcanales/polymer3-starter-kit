@@ -76,6 +76,7 @@ class MyView1 extends PolymerElement {
 
     `;
   }
+  
                 add() {
                         this.$.query.ref.post({
                           school_name: this.$.school_name.value,
