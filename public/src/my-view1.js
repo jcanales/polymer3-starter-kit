@@ -31,15 +31,6 @@ class MyView1 extends PolymerElement {
           padding: 10px;
         }
       </style>
-        <firebase-app auth-domain="cfid-300bc.firebaseapp.com   "
-                        database-url="https://df-lab.firebaseio.com/"
-                        api-key="AIzaSyC0Mt_4iqqTREXNK5yf6LSdjjJQ_N-Loac">
-          <firebase-query
-            id="query" path="/schools"
-          path="/schools/"
-          data="{{school_name}}","{{school_address}}","{{school_type"}}>
-          <firebase-query>
-
       <div class="card">
         <div class="circle">1</div>
         <h1>Agregar una Escuela</h1>
@@ -60,8 +51,9 @@ class MyView1 extends PolymerElement {
       <script src="node_modules/web-animations-js/web-animations-next-lite.min.js"></script>
 
           <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
           <script>
-            // Initialize Firebase
+         // Initialize Firebase
             var config = {
               apiKey: "AIzaSyC0Mt_4iqqTREXNK5yf6LSdjjJQ_N-Loac",
               authDomain: "cfid-300bc.firebaseapp.com",
@@ -71,19 +63,19 @@ class MyView1 extends PolymerElement {
               messagingSenderId: "1069062310022"
             };
             firebase.initializeApp(config);
-            var database = firebase.database();
           </script>
 
     `;
   }
-  
-                add() {
-                        this.$.query.ref.post({
-                          school_name: this.$.school_name.value,
-                          school_address: this.$.school_address.value,
-                          school_type: this.$.school_type.value,
+              add() {
+                      var database = firebase.database();
+                          function writeUserData(school_name, school_address, school_type) {
+                          firebase.database().ref('schools/').set({
+                          school_name: school_name,
+                          school_address: school_address,
+                          school_type : school_type
                         });
-                        console.log('add');
+                        }
                         this.$.school_name.value = null;
                         this.$.school_address.value = null;
                         this.$.school_type.value = null;
