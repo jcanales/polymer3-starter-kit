@@ -34,7 +34,11 @@ class MyView1 extends PolymerElement {
         <firebase-app auth-domain="cfid-300bc.firebaseapp.com   "
                         database-url="https://df-lab.firebaseio.com/"
                         api-key="AIzaSyC0Mt_4iqqTREXNK5yf6LSdjjJQ_N-Loac">
-          <firebase-query id="querySchools" path="/schools" data="{{Things}}">
+          <firebase-query
+          id="query" path="/schools"
+          path="/schools/schools"
+          data="{{school}}"><firebase-query>
+
       <div class="card">
         <div class="circle">1</div>
         <h1>Agregar una Escuela</h1>
@@ -67,45 +71,20 @@ class MyView1 extends PolymerElement {
             };
             firebase.initializeApp(config);
           </script>
-          <script>
-          class MyView1 extends Polymer.Element {
-              static get is() { return 'my-view1'; }
-
-                var firebase = require('firebase');
-                var database = firebase.database();
-            //    var add = add();
-
-                add() {
-                      writeSchoolData(schoolID, school_name, school_address,school_type){
-                      firebase.database().ref('schools/' + schoolID).set({
-                        name: school_name,
-                        address: school_address,
-                        type: school_type
-                      });
-                    }
-                  }
-
-                clear() {
-                    this.$.addupdate.reset();
-                    this.$.name.value = null;
-                    this.$.address.value = null;
-                    this.$.type.value = null;
-                    this.$.description.value = null;
-                    this.$.add.hidden = false;
-                    this.$.update.hidden = true;
-                    this.$.addTitle.hidden = false;
-                    this.$.updateTitle.hidden = true;
-                    return;
-                  }
-               }
-
-      </script>
-
-
 
     `;
   }
-}
+                add() {
+                      var postData = {
+                        school_name: this.$.school_name.value
+                        }
+                      }
+                clear() {
+                    this.$.school_name.value = null;
+                    this.$.school_address.value = null;
+                    this.$.school_type.value = null;
+                   }
+ }
 
 
 
