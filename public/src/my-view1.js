@@ -35,18 +35,19 @@ class MyView1 extends PolymerElement {
                         database-url="https://df-lab.firebaseio.com/"
                         api-key="AIzaSyC0Mt_4iqqTREXNK5yf6LSdjjJQ_N-Loac">
           <firebase-query
-          id="query" path="/schools"
-          path="/schools/schools"
-          data="{{school}}"><firebase-query>
+            id="query" path="/schools"
+          path="/schools/"
+          data="{{school_name}}","{{school_address}}","{{school_type"}}>
+          <firebase-query>
 
       <div class="card">
         <div class="circle">1</div>
         <h1>Agregar una Escuela</h1>
         <iron-form id="form1">
       <form action="/" method="get">
-          <paper-input id="school_name" type="text" name="school_name" required label="Nombre Escuela" value=""></paper-input>
-          <paper-input id="school_address" type="text" name="school_address" required label="Dirección" value=""></paper-input>
-          <paper-input id="school_type" type="text" name="school_type" required label="Tipo de Escuela" value=""></paper-input>
+          <paper-input id="school_name" type="text" label="Nombre Escuela"></paper-input>
+          <paper-input id="school_address" type="text" label="Dirección"></paper-input>
+          <paper-input id="school_type" type="text" label="Tipo de Escuela"> </paper-input>
 
             <br><br>
             <br>
@@ -70,15 +71,22 @@ class MyView1 extends PolymerElement {
               messagingSenderId: "1069062310022"
             };
             firebase.initializeApp(config);
+            var database = firebase.database();
           </script>
 
     `;
   }
                 add() {
-                      var postData = {
-                        school_name: this.$.school_name.value
-                        }
-                      }
+                        this.$.query.ref.post({
+                          school_name: this.$.school_name.value,
+                          school_address: this.$.school_address.value,
+                          school_type: this.$.school_type.value,
+                        });
+                        console.log('add');
+                        this.$.school_name.value = null;
+                        this.$.school_address.value = null;
+                        this.$.school_type.value = null;
+                       }
                 clear() {
                     this.$.school_name.value = null;
                     this.$.school_address.value = null;
